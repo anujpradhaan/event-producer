@@ -1,0 +1,10 @@
+rabbitmq:
+  topicExchangeName: topic-exchange
+  routingKeyName : routing.key
+  directExchangeName: direct-exchange
+  fanoutExchangeName: fanout-exchange
+  username : guest
+  password : guest
+  host : localhost
+  port : 5672
+
