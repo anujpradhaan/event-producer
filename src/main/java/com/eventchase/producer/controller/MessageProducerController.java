@@ -1,6 +1,6 @@
 package com.eventchase.producer.controller;
 
-import com.eventchase.producer.exchange.RequestDTO;
+import com.eventchase.producer.exchange.Order;
 import com.eventchase.producer.exchange.direct.DirectExchangeService;
 import com.eventchase.producer.exchange.fanout.FanoutExchangeService;
 import com.eventchase.producer.exchange.topic.TopicExchangeService;
@@ -20,17 +20,17 @@ public class MessageProducerController {
 	private final FanoutExchangeService fanoutExchangeService;
 
 	@PostMapping("/topic")
-	public void addToTopicExchange(@RequestBody RequestDTO requestDTO) {
-		topicExchangeService.sendMessage(requestDTO);
+	public void addToTopicExchange(@RequestBody Order order) {
+		topicExchangeService.sendMessage(order);
 	}
 
 	@PostMapping("/direct")
-	public void addToDirectExchange(@RequestBody RequestDTO requestDTO) {
-		directExchangeService.sendMessage(requestDTO);
+	public void addToDirectExchange(@RequestBody Order order) {
+		directExchangeService.sendMessage(order);
 	}
 
 	@PostMapping("/fanout")
-	public void addToFanoutExchange(@RequestBody RequestDTO requestDTO) {
-		fanoutExchangeService.sendMessage(requestDTO);
+	public void addToFanoutExchange(@RequestBody Order order) {
+		fanoutExchangeService.sendMessage(order);
 	}
 }

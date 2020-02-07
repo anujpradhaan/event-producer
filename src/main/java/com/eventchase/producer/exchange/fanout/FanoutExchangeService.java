@@ -1,7 +1,7 @@
 package com.eventchase.producer.exchange.fanout;
 
 import com.eventchase.producer.exchange.RabbitMQConfiguration;
-import com.eventchase.producer.exchange.RequestDTO;
+import com.eventchase.producer.exchange.Order;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.FanoutExchange;
@@ -17,8 +17,8 @@ public class FanoutExchangeService {
 	private final RabbitTemplate rabbitTemplate;
 	private final FanoutExchange fanoutExchange;
 
-	public void sendMessage(RequestDTO requestDTO) {
-		log.info("Pushing {} to exchange {}", requestDTO, fanoutExchange.getName());
-		rabbitTemplate.convertAndSend(fanoutExchange.getName(), rabbitMQConfiguration.getRoutingKeyName(), requestDTO);
+	public void sendMessage(Order order) {
+		log.info("Pushing {} to exchange {}", order, fanoutExchange.getName());
+		rabbitTemplate.convertAndSend(fanoutExchange.getName(), rabbitMQConfiguration.getRoutingKeyName(), order);
 	}
 }
