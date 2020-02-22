@@ -1,7 +1,7 @@
 package com.eventchase.producer.exchange.topic;
 
+import com.eventchase.producer.entity.Orders;
 import com.eventchase.producer.exchange.RabbitMQConfiguration;
-import com.eventchase.producer.exchange.Order;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.TopicExchange;
@@ -16,7 +16,7 @@ public class TopicExchangeService {
 	private final RabbitTemplate rabbitTemplate;
 	private final TopicExchange topicExchange;
 
-	public void sendMessage(Order order) {
+	public void sendMessage(Orders order) {
 		log.info("Pushing {} to exchange {}", order, topicExchange.getName());
 		rabbitTemplate.convertAndSend(topicExchange.getName(), rabbitMQConfiguration.getRoutingKeyName(), order);
 	}
