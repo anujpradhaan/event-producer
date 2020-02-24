@@ -1,7 +1,7 @@
 package com.eventchase.producer.exchange.direct;
 
+import com.eventchase.producer.entity.Orders;
 import com.eventchase.producer.exchange.RabbitMQConfiguration;
-import com.eventchase.producer.exchange.Order;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.DirectExchange;
@@ -16,7 +16,7 @@ public class DirectExchangeService {
 	private final RabbitTemplate rabbitTemplate;
 	private final DirectExchange directExchange;
 
-	public void sendMessage(Order order) {
+	public void sendMessage(Orders order) {
 		log.info("Pushing {} to exchange {}", order, directExchange.getName());
 		rabbitTemplate.convertAndSend(directExchange.getName(), rabbitMQConfiguration.getRoutingKeyName(), order);
 	}

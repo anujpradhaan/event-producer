@@ -1,9 +1,10 @@
 package com.eventchase.producer.controller;
 
-import com.eventchase.producer.exchange.Order;
+import com.eventchase.producer.entity.Orders;
 import com.eventchase.producer.exchange.direct.DirectExchangeService;
 import com.eventchase.producer.exchange.fanout.FanoutExchangeService;
 import com.eventchase.producer.exchange.topic.TopicExchangeService;
+import com.eventchase.producer.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,19 +19,23 @@ public class MessageProducerController {
 	private final TopicExchangeService topicExchangeService;
 	private final DirectExchangeService directExchangeService;
 	private final FanoutExchangeService fanoutExchangeService;
+	private final OrderRepository orderRepository;
 
 	@PostMapping("/topic")
-	public void addToTopicExchange(@RequestBody Order order) {
+	public void addToTopicExchange(@RequestBody Orders order) {
+		orderRepository.save(order);
 		topicExchangeService.sendMessage(order);
 	}
 
 	@PostMapping("/direct")
-	public void addToDirectExchange(@RequestBody Order order) {
+	public void addToDirectExchange(@RequestBody Orders order) {
+		orderRepository.save(order);
 		directExchangeService.sendMessage(order);
 	}
 
 	@PostMapping("/fanout")
-	public void addToFanoutExchange(@RequestBody Order order) {
+	public void addToFanoutExchange(@RequestBody Orders order) {
+		orderRepository.save(order);
 		fanoutExchangeService.sendMessage(order);
 	}
 }
